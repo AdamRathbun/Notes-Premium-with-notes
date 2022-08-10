@@ -52,6 +52,7 @@ app.get('/', async (request, response) => {
 app.post('/addTodo', (request, response) => {
   //insert to the todo collection as an item that is not in complete state
   //log that the item was added and redirect to the root index
+  //note that todoItem comes from "name" of the input
   db.collection('todos').insertOne({ thing: request.body.todoItem, completed: false })
     .then(result => {
       console.log('Todo Added')
@@ -120,5 +121,4 @@ app.listen(process.env.PORT || PORT, () => {
 })
 
 
-// can you see this?YESSSS
 
