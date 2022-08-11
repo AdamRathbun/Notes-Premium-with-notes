@@ -42,6 +42,7 @@ async function deleteItem(){
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
+              //this data is saved under the property of 'itemFromJS'
               'itemFromJS': itemText
             })
           })
@@ -68,6 +69,7 @@ async function markComplete(){
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
+                //this data is saved under the property of 'itemFromJS'
                 'itemFromJS': itemText
             })
           })
