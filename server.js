@@ -27,7 +27,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 app.set('view engine', 'ejs')
 // this tells express to automagically pull the style.css and main.js files from the "public" folder. serves static files with static assets directories.
 app.use(express.static('public'))
-// It parses incoming requests with urlencoded payloads and is based on body-parser. replaced body-parser: extended.
+// It parses incoming requests with urlencoded payloads and is based on body-parser. note this replaces body-parser: extended.
 app.use(express.urlencoded({ extended: true }))
 //It parses incoming JSON requests and puts the parsed data in "req.body"
 app.use(express.json())
@@ -81,8 +81,10 @@ app.put('/markComplete', (request, response) => {
 //If the put request fails, it throws and logs the error.
 })
 //Makes a request to /markUnComplete endpoint, to update an item that has been previously marked as complete back to incomplete.
+//Note the path may be different when hosting it, as this is built for local host
 app.put('/markUnComplete', (request, response) => {
-  //Looks in the database collection 'todos' to update one object that matches the request.body.itemFromJS given in the request
+  //Looks in the database collection 'todos' to update one object that matches the request.body.itemFromJS property given in the request (see ln 74 in main.js)
+  //note updateOne is mongo syntax that's built in. 
   db.collection('todos').updateOne({ thing: request.body.itemFromJS }, {
     //sets the value of the requested object to false
     $set: {
@@ -115,6 +117,7 @@ app.delete('/deleteItem', (request, response) => {
 
 })
 //starts the app to listen on either the PORT used by the hosting service, or the PORT hardcoded in. Heroku can make its own port number.
+//note on Heroku will set my own environment variable
 app.listen(process.env.PORT || PORT, () => {
   //Writes in the console when the server starts, and lists the port. 
   console.log(`Server running on port ${PORT}`)
