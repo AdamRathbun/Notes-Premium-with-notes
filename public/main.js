@@ -59,12 +59,14 @@ async function deleteItem(){
     }
 }
 
-//Upon completion of task, updates database with task being completed.
+//Upon completion of task, updates database with task being completed. note that all items have an event listener listening for a click to activate this function
 async function markComplete(){
   
-   //Takes the text that is in the second child of the parent element and places it into a variable itemText
+   //Takes the text that is in the second child of the parent element (li), which is the corresponding span and places it into a variable itemText
     const itemText = this.parentNode.childNodes[1].innerText
     try{
+  //think 'markComplete' here becomes '/markComplete' for the put request in the server. and see how we're also making a fetch request to the server. 
+  // note that forms, alternatively, don't need an event listener. also, note the path is for the local host and hosting it on heroku may be different
         const response = await fetch('markComplete', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
