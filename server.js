@@ -7,7 +7,7 @@ const MongoClient = require('mongodb').MongoClient
 // initalizes and sets PORT variable
 const PORT = 2121
 // calls dotenv package (for files that start with dot, like .gitignore)
-require('dotenv').config()
+require('dotenv').config({path: './.env'})
 
 //initializes and sets variables for db, dbConnectionStr, and dbName. it's good practice to not set the actual MongoDB string here but on Heroku instead.  
 let db,
